@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --red: red;
+}
+
+body {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #050505;
+}
+
+.wrapper {
+    position: relative;
+    max-width: 650px;
+    width: 100%;
+    height: 430px;
+    background: rgba(0,0,0,.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+}
+
+.image-container {
+    height: 360px;
+    max-width: 500px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.image-container .carousel {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    /* overflow: hidden; */
+    transition: all 1.5s ease;
+}
+
+.image-container .carousel img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border: 10px solid rgba(0,0,0,0);
+    border-radius: 18px;
+}
+
+.wrapper .i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 36px;
+    width: 36px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.wrapper .i#prev {
+    left: 20px;
+}
+
+.wrapper .i#next {
+    right: 20px;
+}
+
+.active_bar {
+    position: absolute;
+    bottom: 13px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.active_bar span {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: lightgrey;
+    transition: all 1s ease;
+}
+
+.active_bar .active {
+    background: #0f0;
+}
+
+/* Run this one after everything works remaining the background */
+
+.wallpaper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: url(flower.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(8px);
+    transition: all 1.5s ease;
+}

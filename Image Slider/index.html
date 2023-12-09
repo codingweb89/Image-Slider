@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+</head>
+<body>
+
+
+<section class="wrapper">
+    <img src="back.png" alt="" id="prev" class="i">
+    <div class="image-container">
+        <div class="carousel">
+            <img src="flower.jpg" alt="">
+            <img src="girl.jpg" alt="">
+            <img src="butterfly.jpg" alt="">
+            <img src="carniolan.jpg" alt="">
+        </div>
+        <img src="next.png" alt="" id="next" class="i">
+        <div class="active_bar">
+            <span class="active"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</section>
+
+<!--Run this one after everything remaining background-->
+<div class="wallpaper"></div>
+
+<script>
+
+
+let wrapper = document.querySelector(".wrapper");
+let currentSlide = 0;
+let interval;
+let carousel = document.querySelector(".carousel");
+let imageCount = document.querySelector(".carousel").querySelectorAll("img");
+let i = document.querySelectorAll(".i");
+
+let allImages = ["flower.jpg", "girl.jpg", "butterfly.jpg", "carniolan.jpg"]
+
+function autoSlide() {
+    interval = setInterval(() => startSlider(++currentSlide), 3000)
+}
+
+autoSlide();
+
+
+function startSlider() {
+
+    if(currentSlide === imageCount.length) {
+        currentSlide = 0;
+    }else {
+        if(currentSlide < 0) {
+            currentSlide = imageCount.length -1;
+        }else {
+            currentSlide = currentSlide;
+        }
+    }
+
+    // currentSlide = currentSlide === imageCount.length ? 0 : currentSlide < 0 ? imageCount.length -1 : currentSlide;
+
+    carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+    let activebarSpan = document.querySelector(".active_bar").querySelectorAll("span");
+    activebarSpan.forEach((active) => {
+        active.classList.remove("active");
+    })
+    activebarSpan[currentSlide].classList.add("active")
+
+    //Run this one after everthing has be done remaining the background
+    let wallpaper = document.querySelector(".wallpaper");
+
+    document.documentElement.style.setProperty("url(--image)", allImages[currentSlide]);
+
+    console.log(allImages[currentSlide])
+
+    wallpaper.style.backgroundImage = `url("${allImages[currentSlide]}")`
+
+    console.log(window.getComputedStyle(wallpaper).backgroundImage)
+
+}
+
+i.forEach(button => button.addEventListener("click", e => {
+    clearInterval(interval)
+    if(e.target.id === "next") {
+        currentSlide += 1;
+    }else {
+        currentSlide += -1;
+    }
+    // currentSlide += e.target.id === "next" ? 1 : -1;
+    startSlider(currentSlide)
+}))
+
+
+wrapper.addEventListener("mouseover", () => clearInterval(interval))
+wrapper.addEventListener("mouseleave", autoSlide)
+
+
+</script>
+
+</body>
+</html>
